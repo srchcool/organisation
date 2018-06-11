@@ -45,7 +45,7 @@ export function basicorganisationBody() {
                 "state": "GA",
                 "zipcode": "30033"
               },
-             "company-telephone": "4043209989",
+             "company-telephone": "404 320 9989",
              "company-contact": "John Doe",
              "company-size": "10000",
              "vatnumber": "123456789",
@@ -55,6 +55,6 @@ export function basicorganisationBody() {
               "organisation-id": ["31a9923b-9ee1-4e9e-a3d4-8f800fabce54","31a9923b-9ee1-4e9e-a3d4-8f800fabce54"]
              }
   };
-  
+
   return organisation;
 }

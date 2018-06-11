@@ -84,6 +84,23 @@ test('list succeeds', async (done) => {
     expect(response.statusCode).toEqual(200);
     expect(typeof response.body).toBe('string');
 
+    expect(typeof JSON.parse(response.body)[0].type).toBe('string');
+    expect(typeof JSON.parse(response.body)[0]["company-name"]).toBe('string');
+
+    expect(typeof JSON.parse(response.body)[0].address).toBe('object');
+    expect(typeof JSON.parse(response.body)[0].address["company-address-line-one"]).toBe('string');
+    expect(typeof JSON.parse(response.body)[0].address["city"]).toBe('string');
+
+    expect(typeof JSON.parse(response.body)[0]["billing-address"]).toBe('object');
+    expect(typeof JSON.parse(response.body)[0]["billing-address"]["company-address-line-one"]).toBe('string');
+    expect(typeof JSON.parse(response.body)[0]["billing-address"]["city"]).toBe('string');
+
+    expect(typeof JSON.parse(response.body)[0]["company-telephone"]).toBe('string');
+    expect(typeof JSON.parse(response.body)[0]["company-contact"]).toBe('string');
+    expect(typeof JSON.parse(response.body)[0]["company-size"]).toBe('number');
+    expect(typeof JSON.parse(response.body)[0]["vatnumber"]).toBe('number');
+    expect(typeof JSON.parse(response.body)[0]["company-number"]).toBe('number');
+    expect(typeof JSON.parse(response.body)[0]["employees"]).toBe('object');
 
     done();
   };
