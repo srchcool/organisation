@@ -4,27 +4,27 @@ import * as get from '../../get';
 import * as list from '../../list';
 import * as update from '../../update';
 
-import { apiGatewayEventForTest, contextForTest, basiccustomerBody } from '../test-shared';
+import { apiGatewayEventForTest, contextForTest, basicorganisationBody } from '../test-shared';
 
 const { isoStringRegex } = utilities;
 
-let customerId;
-const customerBody = basiccustomerBody();
-const updatedcustomerBody = basiccustomerBody(true);
-updatedcustomerBody.adminTitle = 'updated_test_customer';
-updatedcustomerBody.description = 'updated customer is updated';
+let organisationId;
+const organisationBody = basicorganisationBody();
+const updatedorganisationBody = basicorganisationBody(true);
+updatedorganisationBody.adminTitle = 'updated_test_organisation';
+updatedorganisationBody.description = 'updated organisation is updated';
 
 
-test('create customer', async (done) => {
+test('create organisation', async (done) => {
   console.log('create.');
 
   const event = apiGatewayEventForTest();
   event.httpMethod = 'POST';
-  event.body = JSON.stringify(customerBody);
+  event.body = JSON.stringify(organisationBody);
 
   const context = contextForTest();
-  context.logGroupName = '/aws/lambda/customer-prod-create';
-  context.functionName = 'customer-prod-create';
+  context.logGroupName = '/aws/lambda/organisation-prod-create';
+  context.functionName = 'organisation-prod-create';
 
   const callback = (error, response) => {
     console.log(response);
@@ -33,37 +33,37 @@ test('create customer', async (done) => {
     const responseBody = JSON.parse(response.body);
     expect(typeof responseBody.id).toBe('string');
     expect(typeof responseBody.createdAt).toBe('string');
-    customerId = responseBody.id;
-    Object.keys(customerBody).forEach((key) => {
+    organisationId = responseBody.id;
+    Object.keys(organisationBody).forEach((key) => {
       console.log(`key is checking: ${key}`);
       expect(responseBody[key]).toBeTruthy();
-      expect(responseBody[key]).toEqual(customerBody[key]);
+      expect(responseBody[key]).toEqual(organisationBody[key]);
     });
     done();
   };
   await create.main(event, context, callback);
 });
 
-test('get created customer', async (done) => {
+test('get created organisation', async (done) => {
   console.log('get.');
   const event = apiGatewayEventForTest();
-  event.pathParameters = { id: customerId };
+  event.pathParameters = { id: organisationId };
   event.httpMethod = 'GET';
   const context = contextForTest();
-  context.logGroupName = '/aws/lambda/customer-prod-get';
-  context.functionName = 'customer-prod-get';
+  context.logGroupName = '/aws/lambda/organisation-prod-get';
+  context.functionName = 'organisation-prod-get';
 
   const callback = (error, response) => {
     expect(response.statusCode).toEqual(200);
     expect(typeof response.body).toBe('string');
     const responseBody = JSON.parse(response.body);
-    expect(JSON.parse(response.body).id).toBe(customerId);
-    console.log('customerId checked.');
-    Object.keys(customerBody).forEach((key) => {
+    expect(JSON.parse(response.body).id).toBe(organisationId);
+    console.log('organisationId checked.');
+    Object.keys(organisationBody).forEach((key) => {
       console.log(`key is checking: ${key}`);
       expect(responseBody[key]).toBeTruthy();
-      console.log(` equal checking: ${key}, value: ${customerBody[key]}`);
-      expect(responseBody[key]).toEqual(customerBody[key]);
+      console.log(` equal checking: ${key}, value: ${organisationBody[key]}`);
+      expect(responseBody[key]).toEqual(organisationBody[key]);
     });
     done();
   };
@@ -84,38 +84,24 @@ test('list succeeds', async (done) => {
     expect(response.statusCode).toEqual(200);
     expect(typeof response.body).toBe('string');
 
- 
-    expect(typeof JSON.parse(response.body)[0].details).toBe('object');
-    expect(typeof JSON.parse(response.body)[0].details["first-name"]).toBe('string');
-    expect(typeof JSON.parse(response.body)[0].details["last-name"]).toBe('string');
-    expect(typeof JSON.parse(response.body)[0].details["email"]).toBe('string');
 
-    expect(typeof JSON.parse(response.body)[0]["user-id"]).toBe('uuid');
-
-    expect(typeof JSON.parse(response.body)[0].account).toBe('object');
-    expect(typeof JSON.parse(response.body)[0].account["account-number"]).toBe('string');
-    expect(typeof JSON.parse(response.body)[0].account["account-type"]).toBe('string');
-    expect(typeof JSON.parse(response.body)[0].account["account-start"]).toBe('date');
-    expect(typeof JSON.parse(response.body)[0].account["price-per-seat"]).toBe('number');
-    expect(typeof JSON.parse(response.body)[0].account["licences"]).toBe('number');
-    expect(typeof JSON.parse(response.body)[0].account["subscription-period"]).toBe('string');
     done();
   };
 
   await list.main(event, context, callback);
 });
 
-test('update customer content', async (done) => {
+test('update organisation content', async (done) => {
   console.log('update.');
   const event = apiGatewayEventForTest();
-  event.pathParameters = { id: customerId };
+  event.pathParameters = { id: organisationId };
   event.httpMethod = 'PUT';
-  event.body = JSON.stringify(updatedcustomerBody);
+  event.body = JSON.stringify(updatedorganisationBody);
 
-  event.pathParameters = { id: customerId };
+  event.pathParameters = { id: organisationId };
   const context = contextForTest();
-  context.logGroupName = '/aws/lambda/customer-prod-update';
-  context.functionName = 'customer-prod-update';
+  context.logGroupName = '/aws/lambda/organisation-prod-update';
+  context.functionName = 'organisation-prod-update';
 
   const callback = (error, response) => {
     console.log(response);
@@ -127,24 +113,24 @@ test('update customer content', async (done) => {
   await update.main(event, context, callback);
 });
 
-test('get updated customer', async (done) => {
+test('get updated organisation', async (done) => {
   console.log('get.');
   const event = apiGatewayEventForTest();
-  event.pathParameters = { id: customerId };
+  event.pathParameters = { id: organisationId };
   event.httpMethod = 'GET';
   const context = contextForTest();
-  context.logGroupName = '/aws/lambda/customer-prod-get';
-  context.functionName = 'customer-prod-get';
+  context.logGroupName = '/aws/lambda/organisation-prod-get';
+  context.functionName = 'organisation-prod-get';
   const callback = (error, response) => {
     expect(response.statusCode).toEqual(200);
     expect(typeof response.body).toBe('string');
     const responseBody = JSON.parse(response.body);
-    expect(JSON.parse(response.body).id).toBe(customerId);
-    Object.keys(updatedcustomerBody).forEach((key) => {
+    expect(JSON.parse(response.body).id).toBe(organisationId);
+    Object.keys(updatedorganisationBody).forEach((key) => {
       console.log(`key is checking: ${key}`);
       expect(responseBody[key]).toBeTruthy();
-      console.log(` equal checking: ${key}, value: ${customerBody[key]}`);
-      expect(responseBody[key]).toEqual(updatedcustomerBody[key]);
+      console.log(` equal checking: ${key}, value: ${organisationBody[key]}`);
+      expect(responseBody[key]).toEqual(updatedorganisationBody[key]);
     });
     done();
   };
@@ -153,14 +139,14 @@ test('get updated customer', async (done) => {
 });
 
 
-test('get fails on deleted customer', async (done) => {
+test('get fails on deleted organisation', async (done) => {
   console.log('get.');
   const event = apiGatewayEventForTest();
-  event.pathParameters = { id: customerId };
+  event.pathParameters = { id: organisationId };
   event.httpMethod = 'GET';
   const context = contextForTest();
-  context.logGroupName = '/aws/lambda/customer-prod-get';
-  context.functionName = 'customer-prod-get';
+  context.logGroupName = '/aws/lambda/organisation-prod-get';
+  context.functionName = 'organisation-prod-get';
 
   const callback = (error, response) => {
     expect(response.statusCode).toEqual(500);

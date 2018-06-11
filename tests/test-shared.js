@@ -1,5 +1,5 @@
 export const apiGatewayEventForTest = () => ({
-  path: '/customer',
+  path: '/organisation',
   resource: '/{proxy+}',
   queryStringParameters: {},
 
@@ -20,59 +20,41 @@ export const contextForTest = () => ({
   getRemainingTimeInMillis: () => 5997,
 });
 
-export function basiccustomerBody() {
+export function basicorganisationBody() {
 
-  const customer = {
-
-          /*id:"31a9923b-9ee1-4e9e-a3d4-8f800fabce54",*/
-          details:{
-                salutation:"Mr",
-                "first-name":"Sam",
-                "last-name":"Deere",
-                email:"sam@welbot.io"
-                 },
-          "user-id":"31a9923b-9ee1-4e9e-a3d4-8f800fabce54",
-          "organisation-id":"31a9923b-9ee1-4e9e-a3d4-8f800fabce54",
-          account:{
-                "account-number":"STU0001",
-                "account-type":"D2C/B2B/Affiliate",
-                "account-start":"2018-03-21",
-                "price-per-seat":"5.50",
-                "monthly-payment":"",
-                "yearly-payment":"2000.00",
-                "discount":{
-                      "discount-type":"yearly",
-                      "discount-percentage":"10"
-                      },              
-                 "affiliate-code":"",
-                 "licences":"20",
-                 "subscription-period":"24 months",
-                 "customer-type":"Paid Beta",
-                 "cancellation":"True",
-                 "refund":"",
-                 "refund-amount":"",
-                 payment:{
-                        "id":"",
-                        "gateway-id":"",
-                        "object":"card/bank transfer/cheque"
-                        },                      
-                 affiliate:{
-                        "affiliate-type":"",
-                        "affiliate-id":"",
-                        "discount":{
-                              "affiliate-code":"",
-                              "discount-id":"",
-                              "discount-percentage":"10"
-                                 }
-                        }
-
-                  
-                
-                } //END "account"
-
-
-        };
-
-
-  return customer;
+    const organisation = {
+            "type": "corp",
+            "company-name": "Test Inc",
+            "address":
+              {
+                "company-address-line-one": "123 Test St",
+                "company-address-line-two": "Suite 2A",
+                "company-address-line-three": "Bldg 5",
+                "city": "Test City",
+                "postcode": "EH2 5AD",
+                "state": "GA",
+                "zipcode": "30033"
+              },
+            "billing-address":
+              {
+                "company-address-line-one": "123 Test St Attn: Billing",
+                "company-address-line-two": "Suite 2A",
+                "company-address-line-three": "Bldg 5",
+                "city": "Test Billing City",
+                "postcode": "EH2 5AD",
+                "state": "GA",
+                "zipcode": "30033"
+              },
+             "company-telephone": "4043209989",
+             "company-contact": "John Doe",
+             "company-size": "10000",
+             "vatnumber": "123456789",
+             "company-number": "987654321",
+             "employees":
+             {
+              "organisation-id": ["31a9923b-9ee1-4e9e-a3d4-8f800fabce54","31a9923b-9ee1-4e9e-a3d4-8f800fabce54"]
+             }
+  };
+  
+  return organisation;
 }
