@@ -77,8 +77,8 @@ test('list succeeds', async (done) => {
   event.httpMethod = 'GET';
 
   const context = contextForTest();
-  context.logGroupName = '/aws/lambda/nudge-group-service-prod-list';
-  context.functionName = 'nudge-group-service-prod-list';
+  context.logGroupName = '/aws/lambda/organisation-group-service-prod-list';
+  context.functionName = 'organisation-group-service-prod-list';
 
   const callback = (error, response) => {
     expect(response.statusCode).toEqual(200);
