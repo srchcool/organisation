@@ -23,38 +23,38 @@ export const contextForTest = () => ({
 export function basicorganisationBody() {
 
     const organisation = {
-            "type": "corp",
-            "company-name": "Test Inc",
-            "address":
-              {
-                "company-address-line-one": "123 Test St",
-                "company-address-line-two": "Suite 2A",
-                "company-address-line-three": "Bldg 5",
-                "city": "Test City",
-                "postcode": "EH2 5AD",
-                "state": "GA",
-                "zipcode": "30033"
-              },
-            "billing-address":
-              {
-                "company-address-line-one": "123 Test St Attn: Billing",
-                "company-address-line-two": "Suite 2A",
-                "company-address-line-three": "Bldg 5",
-                "city": "Test Billing City",
-                "postcode": "EH2 5AD",
-                "state": "GA",
-                "zipcode": "30033"
-              },
-             "company-telephone": "404 320 9989",
-             "company-contact": "John Doe",
-             "company-size": "10000",
-             "vatnumber": "123456789",
-             "company-number": "987654321",
-             "employees":
-             {
-              "organisation-id": ["31a9923b-9ee1-4e9e-a3d4-8f800fabce54","31a9923b-9ee1-4e9e-a3d4-8f800fabce54"]
-             }
-  };
+      type: "corp",
+      companyName: "Test Inc",
+      address:
+        {
+          companyAddressLineOne: "123 Test St",
+          companyAddressLineTwo: "Suite 2A",
+          companyAddressLineThree: "Bldg 5",
+          city: "Test City",
+          postcode: "EH2 5AD",
+          state: "GA",
+          zipcode: "30033"
+        },
+      billingAddress:
+        {
+          companyAddressLineOne: "123 Test St Billing",
+          //companyAddressLineTwo: "",
+          //companyAddressLineThree: "",
+          city: "Test City Billing",
+          postcode: "EH2 5AD",
+          state: "GA",
+          zipcode: "30033"
+        },
+       companyTelephone: "4043209989",
+       companyContact: "John Doe",
+       companySize: "123",
+       vatnumber: "12314434567",
+       companyNumber: "878797898794",
+       employees:
+       {
+        customerId: ["31a9923b-9ee1-4e9e-a3d4-8f800fabce54","31a9923b-9ee1-4e9e-a3d4-8f800fabce54"]
+       }
+};
 
   return organisation;
 }
