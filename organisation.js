@@ -66,37 +66,37 @@ body:
 
 	const addressSchema = ()=> {
 	  return( (0, objectSchema)().keys({
-	    	companyAddressLineOne: (0, stringSchema)().required(),
-	    	companyAddressLineTwo: (0, stringSchema)().optional(),
-	    	companyAddressLineThree: (0, stringSchema)().optional(),
-	    	city: (0, stringSchema)().required(),
-	    	postcode: (0, stringSchema)().optional(),
-	    	state: (0, stringSchema)().optional(),
-	    	zipcode: (0, stringSchema)().optional()
+	    	companyAddressLineOne: stringSchema().required(),
+	    	companyAddressLineTwo: stringSchema().optional(),
+	    	companyAddressLineThree: stringSchema().optional(),
+	    	city: stringSchema().required(),
+	    	postcode: stringSchema().optional(),
+	    	state: stringSchema().optional(),
+	    	zipcode: stringSchema().optional()
 	    }) ); 
 	};
 
 	const employeesSchema = ()=> {
 	  return( (0, objectSchema)().keys({
 	    	customerId: vandium.types.array().items(
-	    		(0, uuidSchema)()
+	    		uuidSchema()
 	    	).optional()
 	    }) ); 
 	};	
 
 	const organisationValidationSchema = {
 		  body: {
-					id: (0, uuidSchema)(),
-					type: (0, stringSchema)().required(),
-					companyName: (0, stringSchema)().required(),
-					address: (0, addressSchema)().required(),
-					billingAddress: (0, addressSchema)().required(),
-					companyTelephone: (0, integerSchema)().required(),
-					companyContact: (0, stringSchema)().optional(),
-					companySize: (0, integerSchema)().optional(),
-					vatnumber: (0, stringSchema)().optional(),
-					companyNumber: (0, stringSchema)().optional(),
-					employees: (0, employeesSchema)().optional()
+					id: uuidSchema(),
+					type: stringSchema().required(),
+					companyName: stringSchema().required(),
+					address: addressSchema().required(),
+					billingAddress: addressSchema().required(),
+					companyTelephone: integerSchema().required(),
+					companyContact: stringSchema().optional(),
+					companySize: integerSchema().optional(),
+					vatnumber: stringSchema().optional(),
+					companyNumber: stringSchema().optional(),
+					employees: employeesSchema().optional()
 
 		  }
 	};
