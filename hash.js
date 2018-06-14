@@ -3,13 +3,12 @@ import uuid from "uuid";
 module.exports  = hash();
 
 
-/***ALPHA*******/
+/***ALPHA & DUMMY*******/
 function hash(){
 
-	return({
-
-		v1:()=>{uuid.v1();},
-
-	});
+	return(
+	{
+	  v1: ()=>{return uuid.v1()},
+	});	
 
 }
