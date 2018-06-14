@@ -26,6 +26,10 @@ body:
 	  return vandium.types.uuid();
 	};
 
+	const stringSchema = ()=>{
+	  return vandium.types.string();
+	};	
+
 	const boolSchema = ()=>{
 	  return vandium.types.boolean();
 	};
@@ -37,7 +41,7 @@ body:
 					id: uuidSchema(),
 					organisationId: uuidSchema().required(),
 					userId: uuidSchema().required(),					
-					provisionalInvite: uuidSchema().optional(),
+					provisionalInvite: stringSchema().optional(),
 					active: boolSchema().optional()
 
 		  }
