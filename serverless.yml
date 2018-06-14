@@ -31,7 +31,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:eu-west-1:*:table/organisation"
+      Resource: "arn:aws:dynamodb:eu-west-1:*:table/*"
 
 
 functions:
@@ -81,3 +81,11 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+  adduser:
+    handler: adduser.main
+    events:
+      - http:
+          path: organisationusers
+          method: post
+          cors: true
+          authorizer: aws_iam          
