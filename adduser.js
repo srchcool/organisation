@@ -1,5 +1,5 @@
-import uuid from "uuid";
 import { crud, models } from '@welbot/sdk';
+import hash from './hash'
 
 //TODO: include this into '@welbot/sdk' as part of models
 import organisationUsers from './organisationusers';
@@ -16,7 +16,7 @@ const organisationUsersCreateParams = (baseParams, data, id) => {
   params.TableName = 'organisationusers';
   params.Item.id = id;  
   //TODO: How do we want to generate this (uuid for now)?
-  params.Item.provisionalInvite = uuid.v1();
+  params.Item.provisionalInvite = hash.v1();
   params.Item.active = false;
 
   console.log(params);
@@ -25,4 +25,4 @@ const organisationUsersCreateParams = (baseParams, data, id) => {
 
 // eslint-disable-next-line import/prefer-default-export
 export const main = createBase(organisationUsersCreateParams, organisationUsersDefinition.validationSchema);
-//TODO: Send email to user on success (hnadler)!
+//TODO: Send email to user on success (handler)!
