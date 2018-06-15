@@ -15,7 +15,7 @@ const organisationUsersCreateParams = (baseParams, data, id) => {
   const params = transferCallDataToDynamoRequestParameters(baseParams, data, organisationUsersDefinition);
   params.TableName = 'organisationusers';
   params.Item.id = id;  
-  //TODO: How do we want to generate this (uuid for now)?
+ 
   params.Item.provisionalInvite = hash.v1();
   params.Item.active = false;
 
