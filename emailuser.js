@@ -18,6 +18,8 @@ export const main = async (event, context, callback) =>
 
   	};
 
+  	//BUG!!! It goes to junk mail folder on GMAIL. Fix headers, etc
+  	
     await emailer.send( emailComponents, event, context );
     callback(null, success(emailComponents));
   } 
