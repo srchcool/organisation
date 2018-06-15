@@ -20,7 +20,7 @@ function hash(){
 		const nixTs = Math.round((new Date()).getTime() / 1000);
 		const buffer = uuid.v1()+config.salt+nixTs;
 
-		return crypto.createHash('sha256').update(buffer).digest('base64'); //use digest('hex') for a hex hash
+		return crypto.createHash('sha256').update(buffer).digest('hex'); //use digest('base64') for a base64 hash
 
 		
 	}
