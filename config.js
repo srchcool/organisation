@@ -2,8 +2,8 @@
 const salt = "\][=|q2e`";
 const emailSource = 'roumenkpetrov@gmail.com';
 const addUserEmailSubject = 'You have been added as a user.'
-const addUserEmailBody = (userId, provisionalInvite)=>{
-		return `Please confirm your email address here: https://domain.do?userId=${userId}&provisionalInvite=${provisionalInvite}`}
+const addUserEmailBody = (organisationId, provisionalInvite)=>{
+		return `Please confirm your email address here: http://login.welbot.io?orgId=${organisationId}&provisionalInviteId=${provisionalInvite}`}
 
 exports.region = "eu-west-1";
 exports.salt  = salt;

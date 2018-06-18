@@ -7,8 +7,8 @@ import hash from './hash';
 
 export const main = async (event, context, callback)=> {
 
-  //v0.99 (fixed error handling)
-  //TODO: fix createdAt format in DB?
+  //v0.991 (fixed email link)
+  //TODO Validation
   //TODO: BUG!!! It goes to junk mail folder on GMAIL. Fix headers, etc
 
   const data = JSON.parse(event.body);
@@ -70,14 +70,14 @@ export const main = async (event, context, callback)=> {
   }
 
 
-  //5. Send email
+  //4. Send email
 
   const emailComponents = {
 
       source: config.emailSource,
       to: data.details.email,
       subject: config.addUserEmailSubject,
-      bodyText: config.addUserEmailBody(userId, provisionalInvite)
+      bodyText: config.addUserEmailBody(data.organisationId, provisionalInvite)
 
     };  
 
