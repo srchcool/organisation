@@ -7,12 +7,12 @@ import hash from './hash';
 
 export const main = async (event, context, callback)=> {
 
-  //v0.98 (ES6 export style, updated config with region, added customer insertion and fixed logic)
+  //v0.99 (fixed error handling)
   //TODO: fix createdAt format in DB?
-  //TODO: concat successmessages and dump them at end
   //TODO: BUG!!! It goes to junk mail folder on GMAIL. Fix headers, etc
 
   const data = JSON.parse(event.body);
+  let successBody = {};
 
   //console.log( data );return;
 
@@ -34,7 +34,9 @@ export const main = async (event, context, callback)=> {
   
   try {
     await dynamoDbLib.call("put", params);
-    callback(null, success(params.Item));
+    //callback(null, success(params.Item));
+    successBody.customerStatus = 'Success';
+    successBody.customerData = params.Item;
   } catch (e) {
     console.log(e);
     callback(null, failure({ status: false , error: e }));
@@ -58,7 +60,9 @@ export const main = async (event, context, callback)=> {
 
   try {
     await dynamoDbLib.call("put", params);
-    callback(null, success(params.Item));
+    //callback(null, success(params.Item));
+    successBody.organisationusersStatus = 'Success';
+    successBody.organisationusersData = params.Item;
   } catch (e) {
     console.log(e);
     callback(null, failure({ status: false , error: e }));
@@ -83,13 +87,16 @@ export const main = async (event, context, callback)=> {
       
     await emailer.send( emailComponents, event, context );
 
-    callback(null, success({ status: 'Email sent successfully.', message:  emailComponents}));
+    successBody.emailStatus = 'Success';
+    successBody.emailData = emailComponents;
+
+    callback(null, success(successBody));
 
   } 
   catch (e) 
   {
     console.log(e);
-    callback(null, failure({ status: 'Error sending email.', error: e }));
+    callback(null, failure({ status: false, error: e }));
   }   
 
 }
