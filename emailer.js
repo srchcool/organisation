@@ -1,7 +1,8 @@
 import aws from 'aws-sdk';
+import config from "./config";
 
 const ses = new aws.SES({
-   region: 'eu-west-1'
+   region: config.region
 });
 
 exports.send = function send ( emailComponents, event, context, error )
@@ -27,16 +28,16 @@ exports.send = function send ( emailComponents, event, context, error )
 
         const email = ses.sendEmail(eParams, (err, data)=>{
             if(err) {
-
+                //context.fail(err);
                 reject( err );
             }
             else {
                 /*
                 console.log(data);
                 console.log("EMAIL CODE END");
-                console.log('EMAIL: ', email);*/
-                context.succeed(event);
-                resolve( err );
+                console.log('EMAIL: ', email);
+                context.succeed(event);*/
+                resolve( 'success' );
 
             }
         });

@@ -31,7 +31,15 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:eu-west-1:*:table/*"
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+        - ses:SendEmail
+        - ses:SendRawEmail      
+      Resource: "*"
+
+      #"arn:aws:dynamodb:eu-west-1:*:table/*","arn:aws:ses:eu-west-1:289572371139:identity/roumenkpetrov@gmail.com"
+
 
 
 functions:
@@ -85,7 +93,15 @@ functions:
     handler: adduser.main
     events:
       - http:
-          path: organisationusers
+          path: organisationadduser
           method: post
           cors: true
-          authorizer: aws_iam          
+          authorizer: aws_iam  
+  #adduserlookup:
+  #  handler: adduserlookup.main
+  #  events:
+  #    - http:
+  #       path: organisationadduserlookup
+  #        method: post
+  #        cors: true
+  #        authorizer: aws_iam                   
