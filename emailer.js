@@ -5,7 +5,7 @@ const ses = new aws.SES({
    region: config.region
 });
 
-exports.send = function send ( emailComponents, event, context, error )
+exports.send = function send ( emailComponents/*, event, context, error*/ )
 {
 
     return new Promise((resolve,reject) => {
