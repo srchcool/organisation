@@ -104,4 +104,12 @@ functions:
   #       path: organisationadduserlookup
   #        method: post
   #        cors: true
-  #        authorizer: aws_iam                   
+  #        authorizer: aws_iam   
+  confirmuser:
+    handler: confirmuser.main
+    events:
+      - http:
+          path: organisationconfirmuser
+          method: put
+          cors: true
+          authorizer: aws_iam                   

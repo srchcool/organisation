@@ -44,10 +44,10 @@ exports.addUser = function addUser ( event )
   params = {
     TableName: "organisationusers",
     Item: {
-      id: uuid.v1(),
-      organisationId: data.organisationId,
-      userId: userId,
+      //id: uuid.v1(),
       provisionalInvite: provisionalInvite,
+      organisationId: data.organisationId,
+      userId: userId,      
       active: false,
       createdAt: Date.now()
     }
@@ -86,4 +86,62 @@ exports.addUser = function addUser ( event )
                   .catch( null )
           );
   
-}   
+}
+
+/*exports.confirmUserGetItem = async function confirmUserGetItem ( event )
+{ 
+
+    const params = {
+      TableName: "organisationusers",
+
+      Key: {
+        organisationId: data.organisationId,
+        provisionalInvite: data.provisionalInvite
+      }
+    };
+
+    try {
+      const result = await dynamoDbLib.call("get", params);
+      if (result.Item) 
+      {
+        
+        callback(null, success(result.Item));
+      } 
+      else 
+      {
+        callback(null, failure({ status: false, error: "Item not found." }));
+      }
+    } catch (e) 
+    {
+      callback(null, failure({ status: false }));
+    }
+
+}*/
+
+ 
+
+exports.confirmUser = function confirmUser ( event )
+{
+
+  const data = event.body;
+      
+  //Update active for orgId/provisionalInvite pair (if it exists)
+  const params = {
+
+    TableName: "organisationusers",
+
+    Key: {
+      provisionalInvite: data.provisionalInvite,
+      organisationId: data.organisationId      
+    },
+    UpdateExpression: "SET active = :active",
+    ExpressionAttributeValues: {
+      ":active": data.active
+    },
+    ReturnValues: "ALL_NEW"
+
+  };
+  
+  return dynamoDbLib.call("update", params);
+  
+}  
