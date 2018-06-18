@@ -9,7 +9,6 @@ import hash from './hash';
 exports.addUser = function addUser ( event )
 {
 
-  //v0.994 (Implemented vandium validation & created a promise chain util module )
   //TODO Fix promise chain error handling
   //TODO: BUG!!! It goes to junk mail folder on GMAIL. Fix headers, etc
 
@@ -87,38 +86,6 @@ exports.addUser = function addUser ( event )
           );
   
 }
-
-/*exports.confirmUserGetItem = async function confirmUserGetItem ( event )
-{ 
-
-    const params = {
-      TableName: "organisationusers",
-
-      Key: {
-        organisationId: data.organisationId,
-        provisionalInvite: data.provisionalInvite
-      }
-    };
-
-    try {
-      const result = await dynamoDbLib.call("get", params);
-      if (result.Item) 
-      {
-        
-        callback(null, success(result.Item));
-      } 
-      else 
-      {
-        callback(null, failure({ status: false, error: "Item not found." }));
-      }
-    } catch (e) 
-    {
-      callback(null, failure({ status: false }));
-    }
-
-}*/
-
- 
 
 exports.confirmUser = function confirmUser ( event )
 {
