@@ -19,7 +19,7 @@ exports.addUser = function addUser ( event )
   //1. Insert into customers
   const userId = uuid.v1();
   
-  var params = {
+  let params = {
     TableName: "customer",
     Item: {
       id: uuid.v1(),
@@ -38,7 +38,7 @@ exports.addUser = function addUser ( event )
   const promiseCustomer = dynamoDbLib.call("put", params).then( successCb, null ).catch( null );
 
   
-  //3. Insert into lookup table  
+  //2. Insert into lookup table  
   const  provisionalInvite = hash.v1();
 
   params = {
@@ -60,7 +60,7 @@ exports.addUser = function addUser ( event )
   const promiseOrganisationUsers = dynamoDbLib.call("put", params).then( successCb, null ).catch( null );
 
 
-  //4. Send email
+  //3. Send email
 
   const emailComponents = {
 
@@ -76,7 +76,7 @@ exports.addUser = function addUser ( event )
   successData.emailData = emailComponents;
   successCb = function(){ return (successData); };
 
-  var promiseEmail = emailer.send( emailComponents ).then( successCb, null ).catch( null ); 
+  const promiseEmail = emailer.send( emailComponents ).then( successCb, null ).catch( null ); 
 
     
   return ( 
