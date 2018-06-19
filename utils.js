@@ -9,6 +9,7 @@ import hash from './hash';
 exports.addUser = function addUser ( event )
 {
 
+  //TODO: Fix confirm to not add a new record when no match
   //TODO Fix promise chain error handling
   //TODO: BUG!!! It goes to junk mail folder on GMAIL. Fix headers, etc
 
@@ -112,3 +113,24 @@ exports.confirmUser = function confirmUser ( event )
   return dynamoDbLib.call("update", params);
   
 }  
+
+exports.removeUser = function removeUser ( event )
+{
+
+  const data = event.body;
+
+  //Remove user
+  const params = {
+
+    TableName: "organisationusers",
+
+    Key: {
+      provisionalInvite: event.pathParameters.id,
+      organisationId: data.organisationId
+    }
+
+  };
+  
+  return dynamoDbLib.call("delete", params);
+  
+} 
