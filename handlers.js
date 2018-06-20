@@ -49,10 +49,10 @@ export const userManagement = async (organisationId, error) => {
 
 		error = e;
 
-		console.log( e );
+		//console.log( e );
 	}
 
-	console.dir( body );
+	//console.dir( body );
 
 	return body;
 
