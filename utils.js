@@ -47,7 +47,8 @@ exports.addUser = function addUser ( event )
       //id: uuid.v1(),
       provisionalInvite: provisionalInvite,
       organisationId: data.organisationId,
-      userId: userId,      
+      userId: userId, 
+      userName: data.userName,  
       active: false,
       createdAt: Date.now()
     }

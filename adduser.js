@@ -11,7 +11,9 @@ export const main = vandium.api()
               details:{
                 firstName: string,
                 lastName: string,
-                email: email}
+                email: email
+                },
+              userName: string
 
             };
             ********************************/      
@@ -23,8 +25,8 @@ export const main = vandium.api()
                   firstName: vandium.types.string().required(),
                   lastName: vandium.types.string().required(),
                   email: vandium.types.string().email().required()
-
-                }).required()
+                }).required(),
+                userName: vandium.types.string().required()
 
             }
         },   
