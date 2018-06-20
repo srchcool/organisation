@@ -18,6 +18,7 @@ exports.addUser = function addUser ( event )
  
   //1. Insert into customers
   const userId = uuid.v1();
+  const userName = data.userName;
   
   let params = {
     TableName: "customer",
@@ -26,6 +27,7 @@ exports.addUser = function addUser ( event )
       userId: userId,
       organisationId: data.organisationId,
       details: data.details,
+      userName: userName,
       createdAt: Date.now()
     }
   };
@@ -40,6 +42,8 @@ exports.addUser = function addUser ( event )
   
   //2. Insert into lookup table  
   const  provisionalInvite = hash.v1();
+  const firstName = data.details.firstName;
+  const lastName = data.details.lastName;
 
   params = {
     TableName: "organisationusers",
@@ -48,7 +52,9 @@ exports.addUser = function addUser ( event )
       provisionalInvite: provisionalInvite,
       organisationId: data.organisationId,
       userId: userId, 
-      userName: data.userName,  
+      userName: userName,  
+      firstName: firstName,
+      lastName: lastName,
       active: false,
       createdAt: Date.now()
     }
