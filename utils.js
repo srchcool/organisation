@@ -142,3 +142,40 @@ exports.removeUser = function removeUser ( event )
   return dynamoDbLib.call("delete", params);
   
 } 
+
+exports.createDigest = function createDigest ( event )
+{
+
+  const data = event.body;
+
+  // Insert into organisationdigest
+  
+  const params = {
+
+    TableName: "organisationdigest",
+    Item: {
+
+
+            organisationId: data.organisationId,
+
+            users: data.users,
+
+            nudgesServed: data.nudgesServed,
+
+            averageNudgesPerday: data.averageNudgesPerday,
+
+            mostPopularType: data.mostPopularType,
+
+            nudgesByType: data.nudgesByType,
+
+            engagementOverTime: data.engagementOverTime
+    }
+
+  };
+
+  const successCb = function(){ return (params.Item); };   
+  
+  return dynamoDbLib.call("put", params).then( successCb, null ).catch( null );
+  
+}
+
