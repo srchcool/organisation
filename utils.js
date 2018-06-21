@@ -18,7 +18,6 @@ exports.addUser = function addUser ( event )
  
   //1. Insert into customers
   const userId = uuid.v1();
-  const userName = data.userName;
   
   let params = {
     TableName: "customer",
@@ -27,7 +26,7 @@ exports.addUser = function addUser ( event )
       userId: userId,
       organisationId: data.organisationId,
       details: data.details,
-      userName: userName,
+      account:{},      
       createdAt: Date.now()
     }
   };
@@ -52,10 +51,11 @@ exports.addUser = function addUser ( event )
       provisionalInvite: provisionalInvite,
       organisationId: data.organisationId,
       userId: userId, 
-      userName: userName,  
+      userName: data.details.userName,  
       firstName: firstName,
       lastName: lastName,
-      active: false,
+      //sparse key confirmedAt instead of active: false,
+      confirmedAt: 0,
       createdAt: Date.now()
     }
   };
@@ -109,9 +109,9 @@ exports.confirmUser = function confirmUser ( event )
       provisionalInvite: data.provisionalInvite,
       organisationId: data.organisationId      
     },
-    UpdateExpression: "SET active = :active",
+    UpdateExpression: "SET confirmedAt = :confirmedAt",//"SET active = :active",
     ExpressionAttributeValues: {
-      ":active": data.active
+      ":confirmedAt": Date.now()
     },
     ReturnValues: "ALL_NEW"
 
@@ -124,6 +124,7 @@ exports.confirmUser = function confirmUser ( event )
 exports.removeUser = function removeUser ( event )
 {
 
+  //TODO: Should we also remove the record in customer
   const data = event.body;
 
   //Remove user

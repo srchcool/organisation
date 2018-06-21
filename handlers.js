@@ -6,9 +6,9 @@ export const userManagement = async (organisationId, error) => {
 
 	/*********IMPORTANT*****************
 	
-	organisationId-index global secondary index created on table organisationusers
+	organisationId-confirmedAt-index global secondary index created on table organisationusers
 
-	A sparse key confirmedTS should also be created
+	A sparse key (sort key for the above index) confirmedAt should also be created
 
 	Alternatively, we could do a ScanFilter on the table but it is very inefficient
 
@@ -18,10 +18,11 @@ export const userManagement = async (organisationId, error) => {
 	const params = {
 
 	    TableName: "organisationusers",
-	    IndexName: "organisationId-index",
-	    KeyConditionExpression: "organisationId = :organisationId",
+	    IndexName: "organisationId-confirmedAt-index",
+	    KeyConditionExpression: "organisationId = :organisationId AND confirmedAt > :confirmedAt",
 	    ExpressionAttributeValues: {
-	      ":organisationId": organisationId //"0fd1b5a8-6fc1-11e8-adc0-fa7ae01bbebc"
+	      ":organisationId": organisationId,//"0fd1b5a8-6fc1-11e8-adc0-fa7ae01bbebc"
+	      ":confirmedAt": 0
 	    },
 	    ProjectionExpression: "userId,firstName,lastName"
 	  };

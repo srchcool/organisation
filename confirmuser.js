@@ -8,16 +8,16 @@ export const main = vandium.api()
             {
 
                 provisionalInvite: string (pid unique),
-                organisationId: uuid,                
-                active: boolean
+                organisationId: uuid          
+                //Not needed for now per sparse key confirmedAt used active: boolean
 
             };
             ********************************/      
             
             body: {
                 provisionalInvite: vandium.types.string().required(),
-                organisationId: vandium.types.uuid().required(),                
-                active: vandium.types.boolean().required()
+                organisationId: vandium.types.uuid().required()           
+                //Not needed for now per sparse key confirmedAt used active: vandium.types.boolean().required()
             }
 
         },   
