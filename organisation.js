@@ -66,7 +66,7 @@ body:
 	};
 
 	const addressSchema = ()=> {
-	  return( (0, objectSchema)().keys({
+	  return( objectSchema().keys({
 	    	companyAddressLineOne: stringSchema().required(),
 	    	companyAddressLineTwo: stringSchema().optional(),
 	    	companyAddressLineThree: stringSchema().optional(),
@@ -78,7 +78,7 @@ body:
 	};
 
 	const employeesSchema = ()=> {
-	  return( (0, objectSchema)().keys({
+	  return( objectSchema().keys({
 	    	customerId: vandium.types.array().items(
 	    		uuidSchema()
 	    	).optional()
