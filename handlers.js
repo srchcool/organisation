@@ -58,3 +58,40 @@ export const userManagement = async (organisationId, error) => {
 	return body;
 
 };
+
+
+export const organisationStats = async (organisationId, error) => {
+	
+	
+	let body = {};
+
+	const params = {
+
+	    TableName: "organisationdigest",
+	    KeyConditionExpression: "organisationId = :organisationId",
+	    ExpressionAttributeValues: {
+	      ":organisationId": organisationId//organisationId,//"aae3c790-746a-11e8-a6a8-a9e1780e659d"
+	     
+	    },
+	    //ProjectionExpression: ""
+	  };
+
+	try {
+
+		const result = await dynamoDbLib.call("query", params);		
+
+		body = result.Items;
+	    
+
+	} catch (e) {
+
+		error = e;
+
+		//console.log( e );
+	}
+
+	//console.dir( body );
+
+	return body;
+
+};

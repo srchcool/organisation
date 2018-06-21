@@ -104,7 +104,8 @@ functions:
   #       path: organisationadduserlookup
   #        method: post
   #        cors: true
-  #        authorizer: aws_iam   
+  #        authorizer: aws_iam  
+
   confirmuser:
     handler: confirmuser.main
     events:
@@ -112,4 +113,38 @@ functions:
           path: organisationconfirmuser
           method: put
           cors: true
-          authorizer: aws_iam                   
+          authorizer: aws_iam  
+  removeuser:
+    handler: removeuser.main
+    events:
+      - http:
+          path: organisationremoveuser/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+#Test userManagement handler
+  usermanagement:
+    handler: handlers.userManagement
+    events:
+      - http:
+          path: organisationusermanagement
+          method: get
+          cors: true
+          authorizer: aws_iam   
+  digestcreate:
+    handler: digestcreate.main
+    events:
+      - http:
+          path: organisationdigestcreate
+          method: post
+          cors: true
+          authorizer: aws_iam   
+#Test organisationStats handler
+  organisationstats:
+    handler: handlers.organisationStats
+    events:
+      - http:
+          path: organisationstats
+          method: get
+          cors: true
+          authorizer: aws_iam 
