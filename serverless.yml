@@ -148,3 +148,12 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam 
+#Dummy organisationstats creation (test)          
+  statscreate:
+    handler: statscreate.main
+    events:
+      - http:
+          path: organisationstatscreate
+          method: post
+          cors: true
+          authorizer: aws_iam           

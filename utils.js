@@ -179,3 +179,30 @@ exports.createDigest = function createDigest ( event )
   
 }
 
+exports.createStats = function createStats ( event )
+{
+
+  const data = event.body;
+
+  // Insert into organisationstats (testing)
+  
+  const params = {
+
+    TableName: "organisationstats",
+    Item: {
+
+
+            organisationId: data.organisationId,
+
+            objectives: data.objectives
+    }
+
+  };
+
+  const successCb = function(){ return (params.Item); };   
+  
+  return dynamoDbLib.call("put", params).then( successCb, null ).catch( null );
+  
+}
+
+
